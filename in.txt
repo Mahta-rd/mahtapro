@@ -1,0 +1,13 @@
+MOV S1, 2
+MOV S15, 8
+MOV S8, 50
+DUMP_REGS
+
+
+
+
+
+
+
+DUMP_REGS
+EXIT
