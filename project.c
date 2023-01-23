@@ -5,7 +5,6 @@
 
 int S[32];
 int conregs[8];
-int k;
 int stack[50];
 
 void parityflag(int calc)
@@ -87,6 +86,36 @@ void overflowflag_MULL(int value1, int value2, int mull)
     {
         conregs[5] = 0;
     }
+}
+
+void red()
+{
+    printf("\033[1;31m");
+}
+
+void green()
+{
+    printf("\033[1;32m");
+}
+
+void yellow()
+{
+    printf("\033[1;33m");
+}
+
+void blue()
+{
+    printf("\033[1;34m");
+}
+
+void purple()
+{
+    printf("\033[1;35m");
+}
+
+void reset()
+{
+    printf("\033[1;0m");
 }
 
 void ADD(int rd, int rs, int rt)
@@ -188,14 +217,21 @@ void SWP(int rt, int rs)
 
 void DUMP_REGS()
 {
+    green();
+    printf("Registers:\n");
+    blue();
     for (int i = 0; i < 32; i++)
     {
         printf("%d, ", S[i]);
     }
+    yellow();
+    printf("\nConditional Registers:\n");
+    purple();
     for (int j = 0; j < 8; j++)
     {
         printf("%d, ", conregs[j]);
     }
+    reset();
 }
 
 void DUMP_REGS_F()
@@ -204,14 +240,18 @@ void DUMP_REGS_F()
     file = fopen("regs.txt", "w");
     if (file == NULL)
     {
-        printf("ERROR!");
+        red();
+        printf("\nERROR!\n");
+        reset();
     }
     else
     {
+        fprintf(file, "Registers:\n");
         for (int j = 0; j < 32; j++)
         {
             fprintf(file, "%d, ", S[j]);
         }
+        fprintf(file, "\nConditional Registers:\n");
         for (int i = 0; i < 8; i++)
         {
             fprintf(file, "%d, ", conregs[i]);
@@ -227,7 +267,9 @@ void INPUT()
 
 void OUTPUT()
 {
+    blue();
     printf("%d, ", S[0]);
+    reset();
 }
 
 void DIV(int rs, int rt)
@@ -275,8 +317,33 @@ void POP(int rt)
     }
 }
 
+int IndexError(int result, int value, int value1, char orders[14])
+{
+    int flag = 0;
+    if (result < 0 || value < 0 || value1 < 0)
+    {
+        red();
+        printf("\nERROR in %s! The Index is negative.\n", orders);
+        reset();
+        flag = 1;
+    }
+    if (31 < result || 31 < value || 31 < value1)
+    {
+        red();
+        printf("\nERROR in %s! The index is more than 31.\n", orders);
+        reset();
+        flag = 1;
+    }
+    if (flag != 1)
+    {
+        return 1;
+    }
+    return 0;
+}
+
 int main(int argc, char *argv[])
 {
+    int flag, linecheck = 0, k;
     FILE *Main;
     if (argc < 2)
     {
@@ -290,6 +357,13 @@ int main(int argc, char *argv[])
     int value, value1, result, countjmp = 0;
     while (fscanf(Main, "%[^\n]\n", line) != EOF)
     {
+        linecheck++;
+    }
+    rewind(Main);
+    while (fscanf(Main, "%[^\n]\n", line) != EOF)
+    {
+        reset();
+        countjmp++;
         char commands[14] = {'\0'};
         for (int j = 0; j < sizeof(line); j++)
         {
@@ -298,6 +372,10 @@ int main(int argc, char *argv[])
         for (k = 0; line[k] != ' '; k++)
         {
             commands[k] = line[k];
+            // if (line[k + 1] == '\0')
+            // {
+            //     line[k + 1] = ' ';
+            // }
         }
         // commands[k] = '\0';
         if (strcmp(commands, "EXIT") == 0)
@@ -307,70 +385,122 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "ADD") == 0)
         {
             sscanf(line, "ADD S%d, S%d, S%d", &result, &value, &value1);
-            ADD(result, value, value1);
+            flag = IndexError(result, value, value1, commands);
+            if (flag == 1)
+            {
+                ADD(result, value, value1);
+            }
         }
         else if (strcmp(commands, "SUB") == 0)
         {
             sscanf(line, "SUB S%d, S%d, S%d", &result, &value, &value1);
-            SUB(result, value, value1);
+            flag = IndexError(result, value, value1, commands);
+            if (flag == 1)
+            {
+                SUB(result, value, value1);
+            }
         }
         else if (strcmp(commands, "AND") == 0)
         {
             sscanf(line, "AND S%d, S%d, S%d", &result, &value, &value1);
-            AND(result, value, value1);
+            flag = IndexError(result, value, value1, commands);
+            if (flag == 1)
+            {
+                AND(result, value, value1);
+            }
         }
         else if (strcmp(commands, "XOR") == 0)
         {
             sscanf(line, "XOR S%d, S%d, S%d", &result, &value, &value1);
-            XOR(result, value, value1);
+            flag = IndexError(result, value, value1, commands);
+            if (flag == 1)
+            {
+                XOR(result, value, value1);
+            }
         }
         else if (strcmp(commands, "OR") == 0)
         {
             sscanf(line, "OR S%d, S%d, S%d", &result, &value, &value1);
-            OR(result, value, value1);
+            flag = IndexError(result, value, value1, commands);
+            if (flag == 1)
+            {
+                OR(result, value, value1);
+            }
         }
         else if (strcmp(commands, "ADDI") == 0)
         {
             sscanf(line, "ADDI S%d, S%d, %d", &result, &value, &value1);
-            ADDI(result, value, value1);
+            flag = IndexError(result, value, 1, commands);
+            if (flag == 1)
+            {
+                ADDI(result, value, value1);
+            }
         }
         else if (strcmp(commands, "SUBI") == 0)
         {
             sscanf(line, "SUBI S%d, S%d, %d", &result, &value, &value1);
-            SUBI(result, value, value1);
+            flag = IndexError(result, value, 1, commands);
+            if (flag == 1)
+            {
+                SUBI(result, value, value1);
+            }
         }
         else if (strcmp(commands, "ANDI") == 0)
         {
             sscanf(line, "ANDI S%d, S%d, %d", &result, &value, &value1);
-            ANDI(result, value, value1);
+            flag = IndexError(result, value, 1, commands);
+            if (flag == 1)
+            {
+                ANDI(result, value, value1);
+            }
         }
         else if (strcmp(commands, "XORI") == 0)
         {
             sscanf(line, "XORI S%d, S%d, %d", &result, &value, &value1);
-            XORI(result, value, value1);
+            flag = IndexError(result, value, 1, commands);
+            if (flag == 1)
+            {
+                XORI(result, value, value1);
+            }
         }
         else if (strcmp(commands, "ORI") == 0)
         {
             sscanf(line, "ORI S%d, S%d, %d", &result, &value, &value1);
-            ORI(result, value, value1);
+            flag = IndexError(result, value, 1, commands);
+            if (flag == 1)
+            {
+                ORI(result, value, value1);
+            }
         }
         else if (strcmp(commands, "MOV") == 0)
         {
             if (line[8] == 'S' || line[9] == 'S')
             {
                 sscanf(line, "MOV S%d, S%d", &result, &value);
-                MOV(result, S[value]);
+                flag = IndexError(result, value, 1, commands);
+                if (flag == 1)
+                {
+                    MOV(result, S[value]);
+                }
             }
             else
             {
                 sscanf(line, "MOV S%d, %d", &result, &value);
-                MOV(result, value);
+                flag = IndexError(result, 1, 1, commands);
+                if (flag == 1)
+                {
+                    MOV(result, value);
+                }
             }
         }
         else if (strcmp(commands, "SWP") == 0)
         {
             sscanf(line, "SWP S%d, S%d", &value, &value1);
-            SWP(value, value1);
+            flag = IndexError(value, value1, 1, commands);
+            if (flag == 1)
+            {
+                SWP(value, value1);
+            }
         }
         else if (strcmp(commands, "DUMP_REGS") == 0)
         {
@@ -391,70 +521,109 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "JMP") == 0)
         {
             countjmp++;
-            if (countjmp >= 10)
+            if (countjmp >= 5)
             {
-                printf("skip the loop");
+                red();
+                printf("\nERROR in JMP! infinite loop!\n");
+                reset();
                 fscanf(Main, "%[^\n]\n", line);
-                countjmp = 0;
+                // countjmp = 0;
             }
             else
             {
                 int charscount = 0, linecount = 1;
                 sscanf(line, "JMP %d", &value);
-                rewind(Main);
-                while (linecount != value)
+                if (value <= 0)
                 {
-                    charscount++;
-                    if (fgetc(Main) == '\n')
+                    red();
+                    printf("\nError in JMP! Negative Line JMP!\n");
+                    reset();
+                }
+                else if (value > linecheck)
+                {
+                    red();
+                    printf("\nError in JMP! JMP to the line that doesn't exist!\n");
+                    reset();
+                }
+                else
+                {
+                    rewind(Main);
+                    while (linecount != value)
                     {
-                        linecount++;
+                        charscount++;
+                        if (fgetc(Main) == '\n')
+                        {
+                            linecount++;
+                        }
                     }
+                    fseek(Main, charscount + 1, SEEK_SET);
+                    fscanf(Main, "%[^\n]\n", line);
+                    // for (k = 0; line[k] != ' '; k++)
+                    // {
+                    //     commands[k] = line[k];
+                    // }
+                    // commands[k] = '\0';
                 }
-                fseek(Main, charscount + 1, SEEK_SET);
-                fscanf(Main, "%[^\n]\n", line);
-                for (k = 0; line[k] != ' '; k++)
-                {
-                    commands[k] = line[k];
-                }
-                // commands[k] = '\0';
             }
         }
         else if (strcmp(commands, "SKIE") == 0)
         {
             sscanf(line, "SKIE S%d, S%d", &value, &value1);
-            if (S[value] == S[value1])
+            flag = IndexError(value, value1, 1, commands);
+            if (flag == 1)
             {
-                fscanf(Main, "%[^\n]\n", line);
-                // for (k = 0; line[k] != ' '; k++)
-                // {
-                //     commands[k] = line[k];
-                // }
-                // commands[k] = '\0';
+                if (S[value] == S[value1])
+                {
+                    fscanf(Main, "%[^\n]\n", line);
+                    // for (k = 0; line[k] != ' '; k++)
+                    // {
+                    //     commands[k] = line[k];
+                    // }
+                    // commands[k] = '\0';
+                }
             }
         }
         else if (strcmp(commands, "MULL") == 0)
         {
             sscanf(line, "MULL S%d, S%d", &value, &value1);
-            MULL(value, value1);
+            flag = IndexError(value, value1, 1, commands);
+            if (flag == 1)
+            {
+                MULL(value, value1);
+            }
         }
         else if (strcmp(commands, "DIV") == 0)
         {
             sscanf(line, "DIV S%d, S%d", &value, &value1);
-            DIV(value, value1);
+            flag = IndexError(value, value1, 1, commands);
+            if (flag == 1)
+            {
+                DIV(value, value1);
+            }
         }
         else if (strcmp(commands, "PUSH") == 0)
         {
             sscanf(line, "PUSH S%d", &value);
-            PUSH(value);
+            flag = IndexError(value, 1, 1, commands);
+            if (flag == 1)
+            {
+                PUSH(value);
+            }
         }
         else if (strcmp(commands, "POP") == 0)
         {
             sscanf(line, "POP S%d", &value);
-            POP(value);
+            flag = IndexError(value, 1, 1, commands);
+            if (flag == 1)
+            {
+                POP(value);
+            }
         }
         else
         {
-            printf("WRONG INPUT! Please try again. \n");
+            red();
+            printf("\nERROR! \n The Input is wrong! Please try again. \n");
+            reset();
         }
     }
     fclose(Main);
