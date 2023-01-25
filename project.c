@@ -717,12 +717,12 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "JMP") == 0)
         {
             countjmp++;
-            if (countjmp >= 3) 
+            if (countjmp > 5) 
             {
                 red();
                 printf("\nERROR in JMP! infinite loop!\n");
                 reset();
-                fscanf(Main, "%[^\n]\n", line);
+                // fscanf(Main, "%[^\n]\n", line);
                 // countjmp = 0;
             }
             else

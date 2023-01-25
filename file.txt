@@ -1,0 +1,19 @@
+input
+mov s30, s0
+mov s31, -8
+add s29, s4, s30
+subi s17, s29, 10
+mull s30, s31
+div s29, s17
+mov s18, 14
+xori s15, s18, 5
+jmp 13
+mov s14, s15
+and s15, s16, s14
+andi s19, s17, 8
+output
+pop s30
+skie s29, s0
+ori s13, s15, 19
+dump_regs
+exit
