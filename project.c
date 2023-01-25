@@ -1,12 +1,38 @@
+/**
+ * Include File
+ * @brief includes
+**/
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
 #include <stdlib.h>
-
-int S[32];
-int conregs[8];
+/**
+ * @file project.c
+ * @file regs.txt
+ * @file in.txt
+ * @brief final project
+ * @date 1401/11/04
+ * @author mahta-rd
+ * @note 
+ * Please do not copy 
+ * @warning 
+ * WARNING!
+ * \mainpage description of our project
+ * This project is about the registers
+*/
+/**
+ * @brief global values
+**/
+/**32 registers*/
+int S[32]; /**conditional registers*/
+int conregs[8]; /**something like ram that we can save our values in it*/
 int stack[50];
-
+/**
+ * Function parityflag
+ * @brief for conditional register 0
+ * @param[in] int
+ * @return void
+**/
 void parityflag(int calc)
 {
     int count = 0;
@@ -27,7 +53,12 @@ void parityflag(int calc)
         conregs[0] = 0;
     }
 }
-
+/**
+ * Function zeroflag
+ * @brief for conditional register 1 when the calculation's answer is zero.
+ * @param[in] int
+ * @return void
+**/
 void zeroflag(int calc)
 {
     if (calc == 0)
@@ -39,7 +70,12 @@ void zeroflag(int calc)
         conregs[1] == 0;
     }
 }
-
+/**
+ * Function signflag
+ * @brief for conditional register 2 when the calculation's answer is negative.
+ * @param[in] int
+ * @return void
+**/
 void signflag(int calc)
 {
     if (calc < 0)
@@ -51,7 +87,12 @@ void signflag(int calc)
         conregs[2] = 0;
     }
 }
-
+/**
+ * Function overflowflag for add, sub & mull calculations.
+ * @brief for conditional register 5 when we have overflow
+ * @param[in] int
+ * @return void
+**/
 void overflowflag_ADD(int value1, int value2, int add)
 {
     if (0 < value1 && 0 < value2 && add < 0 || value1 < 0 && value2 < 0 && 0 < add)
@@ -87,37 +128,72 @@ void overflowflag_MULL(int value1, int value2, int mull)
         conregs[5] = 0;
     }
 }
-
+/**
+ * Function red 
+ * @brief for better outputs in redcolor
+ * @param[in] void
+ * @return void
+**/
 void red()
 {
     printf("\033[1;31m");
 }
-
+/**
+ * Function green 
+ * @brief for better outputs in greencolor
+ * @param[in] void
+ * @return void
+**/
 void green()
 {
     printf("\033[1;32m");
 }
-
+/**
+ * Function yellow 
+ * @brief for better outputs in yellowcolor
+ * @param[in] void
+ * @return void
+**/
 void yellow()
 {
     printf("\033[1;33m");
 }
-
+/**
+ * Function blue
+ * @brief for better outputs in bluecolor
+ * @param[in] void
+ * @return void
+**/
 void blue()
 {
     printf("\033[1;34m");
 }
-
+/**
+ * Function purple 
+ * @brief for better outputs in purplecolor
+ * @param[in] void
+ * @return void
+**/
 void purple()
 {
     printf("\033[1;35m");
 }
-
+/**
+ * Function reset 
+ * @brief it resets color to original state
+ * @param[in] void
+ * @return void
+**/
 void reset()
 {
     printf("\033[1;0m");
 }
-
+/**
+ * Function ADD
+ * @brief for adding two registers & put the result in the other register
+ * @param[in] int (integer number rd, rs & rt)
+ * @return void
+**/
 void ADD(int rd, int rs, int rt)
 {
     S[rd] = S[rs] + S[rt];
@@ -126,16 +202,26 @@ void ADD(int rd, int rs, int rt)
     signflag(S[rd]);
     overflowflag_ADD(S[rs], S[rt], S[rd]);
 }
-
+/**
+ * Function SUB
+ * @brief for subing two registers & put the result in the other register
+ * @param[in] int (integer number rd, rs & rt)
+ * @return void
+**/
 void SUB(int rd, int rs, int rt)
 {
-    S[rd] = S[rs] - S[rt];
+    S[rd] = S[rt] - S[rs];
     parityflag(S[rd]);
     zeroflag(S[rd]);
     signflag(S[rd]);
     overflowflag_SUB(S[rs], S[rt], S[rd]);
 }
-
+/**
+ * Function AND
+ * @brief this function AND two registers & put the result in the other register
+ * @param[in] int (integer number rd, rs & rt)
+ * @return void
+**/
 void AND(int rd, int rs, int rt)
 {
     S[rd] = S[rt] & S[rs];
@@ -143,7 +229,12 @@ void AND(int rd, int rs, int rt)
     zeroflag(S[rd]);
     signflag(S[rd]);
 }
-
+/**
+ * Function XOR
+ * @brief this function XOR two registers & put the result in the other register
+ * @param[in] int (integer number rd, rs & rt)
+ * @return void
+**/
 void XOR(int rd, int rs, int rt)
 {
     S[rd] = S[rt] ^ S[rs];
@@ -151,7 +242,12 @@ void XOR(int rd, int rs, int rt)
     zeroflag(S[rd]);
     signflag(S[rd]);
 }
-
+/**
+ * Function OR
+ * @brief this function OR two registers & put the result in the other register
+ * @param[in] int (integer number rd, rs & rt)
+ * @return void
+**/
 void OR(int rd, int rs, int rt)
 {
     S[rd] = S[rt] | S[rs];
@@ -159,7 +255,12 @@ void OR(int rd, int rs, int rt)
     zeroflag(S[rd]);
     signflag(S[rd]);
 }
-
+/**
+ * Function ADDI
+ * @brief for adding a registers and a number & put the result in the other register
+ * @param[in] int (integer number rt, rs & Imm)
+ * @return void
+**/
 void ADDI(int rt, int rs, int Imm)
 {
     S[rt] = S[rs] + Imm;
@@ -168,7 +269,12 @@ void ADDI(int rt, int rs, int Imm)
     signflag(S[rt]);
     overflowflag_ADD(S[rs], Imm, S[rt]);
 }
-
+/**
+ * Function SUBI
+ * @brief for subbing a registers and a number & put the result in the other register
+ * @param[in] int (integer number rt, rs & Imm)
+ * @return void
+**/
 void SUBI(int rt, int rs, int Imm)
 {
     S[rt] = S[rs] - Imm;
@@ -177,7 +283,12 @@ void SUBI(int rt, int rs, int Imm)
     signflag(S[rt]);
     overflowflag_SUB(S[rs], Imm, S[rt]);
 }
-
+/**
+ * Function ANDI
+ * @brief this function AND a register with a number & put the result in the other register
+ * @param[in] int (integer number rt, rs & Imm)
+ * @return void
+**/
 void ANDI(int rt, int rs, int Imm)
 {
     S[rt] = S[rs] & Imm;
@@ -185,7 +296,12 @@ void ANDI(int rt, int rs, int Imm)
     zeroflag(S[rt]);
     signflag(S[rt]);
 }
-
+/**
+ * Function XORI
+ * @brief this function XOR a register with a number & put the result in the other register
+ * @param[in] int (integer number rt, rs & Imm)
+ * @return void
+**/
 void XORI(int rt, int rs, int Imm)
 {
     S[rt] = S[rs] ^ Imm;
@@ -193,7 +309,12 @@ void XORI(int rt, int rs, int Imm)
     zeroflag(S[rt]);
     signflag(S[rt]);
 }
-
+/**
+ * Function ORI
+ * @brief this function OR a register with a number & put the result in the other register
+ * @param[in] int (integer number rt, rs & Imm)
+ * @return void
+**/
 void ORI(int rt, int rs, int Imm)
 {
     S[rt] = S[rs] | Imm;
@@ -201,12 +322,22 @@ void ORI(int rt, int rs, int Imm)
     zeroflag(S[rt]);
     signflag(S[rt]);
 }
-
+/**
+ * Function MOV
+ * @brief this function puts a number or value of a register in other register
+ * @param[in] int (integer number rt & Imm)
+ * @return void
+**/
 void MOV(int rt, int Imm)
 {
     S[rt] = Imm;
 }
-
+/**
+ * Function SWP
+ * @brief this function swap two registers
+ * @param[in] int (integer number rt & rs)
+ * @return void
+**/
 void SWP(int rt, int rs)
 {
     int t;
@@ -214,7 +345,12 @@ void SWP(int rt, int rs)
     S[rt] = S[rs];
     S[rs] = t;
 }
-
+/**
+ * Function DUMP_REGS
+ * @brief this function prints the value of all registers with all conditional registers
+ * @param[in] void
+ * @return void
+**/
 void DUMP_REGS()
 {
     green();
@@ -233,7 +369,12 @@ void DUMP_REGS()
     }
     reset();
 }
-
+/**
+ * Function DUMP_REGS_F
+ * @brief this function saves the print the value of all registers with all conditional registers in a file in the name of regs.tx
+ * @param[in] void
+ * @return void
+**/
 void DUMP_REGS_F()
 {
     FILE *file;
@@ -259,20 +400,35 @@ void DUMP_REGS_F()
     }
     fclose(file);
 }
-
+/**
+ * Function INPUT
+ * @brief this function gets value for register 0
+ * @param[in] void
+ * @return void
+**/
 void INPUT()
 {
     scanf("%d", &S[0]);
 }
-
+/**
+ * Function OUTPUT
+ * @brief this function prints the value of register 0
+ * @param[in] void
+ * @return void
+**/
 void OUTPUT()
 {
     blue();
-    printf("%d, ", S[0]);
+    printf("\n%d\n", S[0]);
     reset();
 }
-
-void DIV(int rs, int rt)
+/**
+ * Function DIV
+ * @brief this function divides two registers and puts the quotient in register rt & the remain in register rs
+ * @param[in] int (integer number rs & rt)
+ * @return void
+**/
+void DIV(int rt, int rs)
 {
     int quot;
     quot = S[rt] / S[rs];
@@ -282,7 +438,12 @@ void DIV(int rs, int rt)
     zeroflag(S[rt]);
     signflag(S[rt]);
 }
-
+/**
+ * Function MULL
+ * @brief in this function we multiply two registers and put the 4 more valuable bits in register rt & the 4 less valuable bits in register rs
+ * @param[in] int (integer number rs & rt)
+ * @return void
+**/
 void MULL(int rt, int rs)
 {
     int mult;
@@ -298,7 +459,12 @@ void MULL(int rt, int rs)
     zeroflag(mult);
     signflag(mult);
 }
-
+/**
+ * Function PUSH
+ * @brief in this function we push all stacks and save our value in stack 0
+ * @param[in] int (integer number rs)
+ * @return void
+**/
 void PUSH(int rs)
 {
     for (int i = 0; i < 50; i++)
@@ -307,7 +473,12 @@ void PUSH(int rs)
     }
     stack[0] = S[rs];
 }
-
+/**
+ * Function POP
+ * @brief in this function we empty stack 0 and pull up all the stacks
+ * @param[in] int (integer number rt)
+ * @return void
+**/
 void POP(int rt)
 {
     S[rt] = stack[0];
@@ -316,7 +487,12 @@ void POP(int rt)
         stack[i] = stack[i + 1];
     }
 }
-
+/**
+ * Function IndexError
+ * @brief this function checks the errors for negative index of registers & the index which is more than 31 because there isn't such a register
+ * @param[in] int and char (integer number result, value & value1 and array orders)
+ * @return int (number 1 or 0)
+**/
 int IndexError(int result, int value, int value1, char orders[14])
 {
     int flag = 0;
@@ -340,11 +516,20 @@ int IndexError(int result, int value, int value1, char orders[14])
     }
     return 0;
 }
-
+/**
+ * function main
+ * \section main function
+ * @brief this function do whatever is written in a file which user gives to us
+ * @param[in] int and char* (integer number argc and array argv)
+ * @return int (number 0)
+ * \subsection (int argc counts the characters in argv, char *argv a pointer which points to whatever user gives to us and put that in one of its array)
+**/
 int main(int argc, char *argv[])
 {
     int flag, linecheck = 0, k;
     FILE *Main;
+    /**
+     * @code we get the name of a file which the commands are in from user if user doesn't give the name of the file or the file is empty we open file in.txt*/
     if (argc < 2)
     {
         Main = fopen("in.txt", "r");
@@ -355,21 +540,32 @@ int main(int argc, char *argv[])
     }
     char line[1000];
     int value, value1, result, countjmp = 0;
+    /**
+     * @code we count the lines of command in the file
+    */
     while (fscanf(Main, "%[^\n]\n", line) != EOF)
     {
         linecheck++;
     }
     rewind(Main);
+    /**
+     * @code scan the file & put the the commmands line by line in an array 
+    */
     while (fscanf(Main, "%[^\n]\n", line) != EOF)
     {
         reset();
-        countjmp++;
         char commands[14] = {'\0'};
+        /**
+         * @code all the letters become capital
+        */
         for (int j = 0; j < sizeof(line); j++)
         {
             line[j] = toupper(line[j]);
         }
-        for (k = 0; line[k] != ' '; k++)
+        /**
+         * @code we put the first word of each line in other array
+        */
+        for (k = 0; line[k] != ' ' && line[k] != '\n' && line[k] != '/' && line[k] != '\0'; k++)
         {
             commands[k] = line[k];
             // if (line[k + 1] == '\0')
@@ -521,7 +717,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "JMP") == 0)
         {
             countjmp++;
-            if (countjmp >= 5)
+            if (countjmp >= 3) 
             {
                 red();
                 printf("\nERROR in JMP! infinite loop!\n");
