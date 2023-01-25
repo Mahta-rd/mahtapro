@@ -1,7 +1,7 @@
 /**
  * Include File
  * @brief includes
-**/
+ **/
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -13,18 +13,18 @@
  * @brief final project
  * @date 1401/11/04
  * @author mahta-rd
- * @note 
- * Please do not copy 
- * @warning 
+ * @note
+ * Please do not copy
+ * @warning
  * WARNING!
  * \mainpage description of our project
  * This project is about the registers
-*/
+ */
 /**
  * @brief global values
-**/
+ **/
 /**32 registers*/
-int S[32]; /**conditional registers*/
+int S[32];      /**conditional registers*/
 int conregs[8]; /**something like ram that we can save our values in it*/
 int stack[50];
 /**
@@ -32,7 +32,7 @@ int stack[50];
  * @brief for conditional register 0
  * @param[in] int
  * @return void
-**/
+ **/
 void parityflag(int calc)
 {
     int count = 0;
@@ -58,7 +58,7 @@ void parityflag(int calc)
  * @brief for conditional register 1 when the calculation's answer is zero.
  * @param[in] int
  * @return void
-**/
+ **/
 void zeroflag(int calc)
 {
     if (calc == 0)
@@ -75,7 +75,7 @@ void zeroflag(int calc)
  * @brief for conditional register 2 when the calculation's answer is negative.
  * @param[in] int
  * @return void
-**/
+ **/
 void signflag(int calc)
 {
     if (calc < 0)
@@ -92,7 +92,7 @@ void signflag(int calc)
  * @brief for conditional register 5 when we have overflow
  * @param[in] int
  * @return void
-**/
+ **/
 void overflowflag_ADD(int value1, int value2, int add)
 {
     if (0 < value1 && 0 < value2 && add < 0 || value1 < 0 && value2 < 0 && 0 < add)
@@ -129,31 +129,31 @@ void overflowflag_MULL(int value1, int value2, int mull)
     }
 }
 /**
- * Function red 
+ * Function red
  * @brief for better outputs in redcolor
  * @param[in] void
  * @return void
-**/
+ **/
 void red()
 {
     printf("\033[1;31m");
 }
 /**
- * Function green 
+ * Function green
  * @brief for better outputs in greencolor
  * @param[in] void
  * @return void
-**/
+ **/
 void green()
 {
     printf("\033[1;32m");
 }
 /**
- * Function yellow 
+ * Function yellow
  * @brief for better outputs in yellowcolor
  * @param[in] void
  * @return void
-**/
+ **/
 void yellow()
 {
     printf("\033[1;33m");
@@ -163,27 +163,27 @@ void yellow()
  * @brief for better outputs in bluecolor
  * @param[in] void
  * @return void
-**/
+ **/
 void blue()
 {
     printf("\033[1;34m");
 }
 /**
- * Function purple 
+ * Function purple
  * @brief for better outputs in purplecolor
  * @param[in] void
  * @return void
-**/
+ **/
 void purple()
 {
     printf("\033[1;35m");
 }
 /**
- * Function reset 
+ * Function reset
  * @brief it resets color to original state
  * @param[in] void
  * @return void
-**/
+ **/
 void reset()
 {
     printf("\033[1;0m");
@@ -193,7 +193,7 @@ void reset()
  * @brief for adding two registers & put the result in the other register
  * @param[in] int (integer number rd, rs & rt)
  * @return void
-**/
+ **/
 void ADD(int rd, int rs, int rt)
 {
     S[rd] = S[rs] + S[rt];
@@ -207,7 +207,7 @@ void ADD(int rd, int rs, int rt)
  * @brief for subing two registers & put the result in the other register
  * @param[in] int (integer number rd, rs & rt)
  * @return void
-**/
+ **/
 void SUB(int rd, int rs, int rt)
 {
     S[rd] = S[rt] - S[rs];
@@ -221,7 +221,7 @@ void SUB(int rd, int rs, int rt)
  * @brief this function AND two registers & put the result in the other register
  * @param[in] int (integer number rd, rs & rt)
  * @return void
-**/
+ **/
 void AND(int rd, int rs, int rt)
 {
     S[rd] = S[rt] & S[rs];
@@ -234,7 +234,7 @@ void AND(int rd, int rs, int rt)
  * @brief this function XOR two registers & put the result in the other register
  * @param[in] int (integer number rd, rs & rt)
  * @return void
-**/
+ **/
 void XOR(int rd, int rs, int rt)
 {
     S[rd] = S[rt] ^ S[rs];
@@ -247,7 +247,7 @@ void XOR(int rd, int rs, int rt)
  * @brief this function OR two registers & put the result in the other register
  * @param[in] int (integer number rd, rs & rt)
  * @return void
-**/
+ **/
 void OR(int rd, int rs, int rt)
 {
     S[rd] = S[rt] | S[rs];
@@ -260,7 +260,7 @@ void OR(int rd, int rs, int rt)
  * @brief for adding a registers and a number & put the result in the other register
  * @param[in] int (integer number rt, rs & Imm)
  * @return void
-**/
+ **/
 void ADDI(int rt, int rs, int Imm)
 {
     S[rt] = S[rs] + Imm;
@@ -274,7 +274,7 @@ void ADDI(int rt, int rs, int Imm)
  * @brief for subbing a registers and a number & put the result in the other register
  * @param[in] int (integer number rt, rs & Imm)
  * @return void
-**/
+ **/
 void SUBI(int rt, int rs, int Imm)
 {
     S[rt] = S[rs] - Imm;
@@ -288,7 +288,7 @@ void SUBI(int rt, int rs, int Imm)
  * @brief this function AND a register with a number & put the result in the other register
  * @param[in] int (integer number rt, rs & Imm)
  * @return void
-**/
+ **/
 void ANDI(int rt, int rs, int Imm)
 {
     S[rt] = S[rs] & Imm;
@@ -301,7 +301,7 @@ void ANDI(int rt, int rs, int Imm)
  * @brief this function XOR a register with a number & put the result in the other register
  * @param[in] int (integer number rt, rs & Imm)
  * @return void
-**/
+ **/
 void XORI(int rt, int rs, int Imm)
 {
     S[rt] = S[rs] ^ Imm;
@@ -314,7 +314,7 @@ void XORI(int rt, int rs, int Imm)
  * @brief this function OR a register with a number & put the result in the other register
  * @param[in] int (integer number rt, rs & Imm)
  * @return void
-**/
+ **/
 void ORI(int rt, int rs, int Imm)
 {
     S[rt] = S[rs] | Imm;
@@ -327,7 +327,7 @@ void ORI(int rt, int rs, int Imm)
  * @brief this function puts a number or value of a register in other register
  * @param[in] int (integer number rt & Imm)
  * @return void
-**/
+ **/
 void MOV(int rt, int Imm)
 {
     S[rt] = Imm;
@@ -337,7 +337,7 @@ void MOV(int rt, int Imm)
  * @brief this function swap two registers
  * @param[in] int (integer number rt & rs)
  * @return void
-**/
+ **/
 void SWP(int rt, int rs)
 {
     int t;
@@ -350,7 +350,7 @@ void SWP(int rt, int rs)
  * @brief this function prints the value of all registers with all conditional registers
  * @param[in] void
  * @return void
-**/
+ **/
 void DUMP_REGS()
 {
     green();
@@ -374,7 +374,7 @@ void DUMP_REGS()
  * @brief this function saves the print the value of all registers with all conditional registers in a file in the name of regs.tx
  * @param[in] void
  * @return void
-**/
+ **/
 void DUMP_REGS_F()
 {
     FILE *file;
@@ -405,9 +405,12 @@ void DUMP_REGS_F()
  * @brief this function gets value for register 0
  * @param[in] void
  * @return void
-**/
+ **/
 void INPUT()
 {
+    green();
+    printf("\nenter the value of register 0:\n");
+    reset();
     scanf("%d", &S[0]);
 }
 /**
@@ -415,7 +418,7 @@ void INPUT()
  * @brief this function prints the value of register 0
  * @param[in] void
  * @return void
-**/
+ **/
 void OUTPUT()
 {
     blue();
@@ -427,7 +430,7 @@ void OUTPUT()
  * @brief this function divides two registers and puts the quotient in register rt & the remain in register rs
  * @param[in] int (integer number rs & rt)
  * @return void
-**/
+ **/
 void DIV(int rt, int rs)
 {
     int quot;
@@ -443,7 +446,7 @@ void DIV(int rt, int rs)
  * @brief in this function we multiply two registers and put the 4 more valuable bits in register rt & the 4 less valuable bits in register rs
  * @param[in] int (integer number rs & rt)
  * @return void
-**/
+ **/
 void MULL(int rt, int rs)
 {
     int mult;
@@ -464,7 +467,7 @@ void MULL(int rt, int rs)
  * @brief in this function we push all stacks and save our value in stack 0
  * @param[in] int (integer number rs)
  * @return void
-**/
+ **/
 void PUSH(int rs)
 {
     for (int i = 0; i < 50; i++)
@@ -478,7 +481,7 @@ void PUSH(int rs)
  * @brief in this function we empty stack 0 and pull up all the stacks
  * @param[in] int (integer number rt)
  * @return void
-**/
+ **/
 void POP(int rt)
 {
     S[rt] = stack[0];
@@ -492,7 +495,7 @@ void POP(int rt)
  * @brief this function checks the errors for negative index of registers & the index which is more than 31 because there isn't such a register
  * @param[in] int and char (integer number result, value & value1 and array orders)
  * @return int (number 1 or 0)
-**/
+ **/
 int IndexError(int result, int value, int value1, char orders[14])
 {
     int flag = 0;
@@ -523,10 +526,11 @@ int IndexError(int result, int value, int value1, char orders[14])
  * @param[in] int and char* (integer number argc and array argv)
  * @return int (number 0)
  * \subsection (int argc counts the characters in argv, char *argv a pointer which points to whatever user gives to us and put that in one of its array)
-**/
+ **/
 int main(int argc, char *argv[])
 {
-    int flag, linecheck = 0, k;
+    int flag, linecheck = 0, k, value, value1, result, countjmp = 0, errorline = 0;
+    char line[1000];
     FILE *Main;
     /**
      * @code we get the name of a file which the commands are in from user if user doesn't give the name of the file or the file is empty we open file in.txt*/
@@ -538,42 +542,36 @@ int main(int argc, char *argv[])
     {
         Main = fopen(argv[1], "r");
     }
-    char line[1000];
-    int value, value1, result, countjmp = 0;
     /**
      * @code we count the lines of command in the file
-    */
+     */
     while (fscanf(Main, "%[^\n]\n", line) != EOF)
     {
         linecheck++;
     }
     rewind(Main);
     /**
-     * @code scan the file & put the the commmands line by line in an array 
-    */
+     * @code scan the file & put the the commmands line by line in an array
+     */
     while (fscanf(Main, "%[^\n]\n", line) != EOF)
     {
         reset();
+        errorline++;
         char commands[14] = {'\0'};
         /**
          * @code all the letters become capital
-        */
+         */
         for (int j = 0; j < sizeof(line); j++)
         {
             line[j] = toupper(line[j]);
         }
         /**
          * @code we put the first word of each line in other array
-        */
+         */
         for (k = 0; line[k] != ' ' && line[k] != '\n' && line[k] != '/' && line[k] != '\0'; k++)
         {
             commands[k] = line[k];
-            // if (line[k + 1] == '\0')
-            // {
-            //     line[k + 1] = ' ';
-            // }
         }
-        // commands[k] = '\0';
         if (strcmp(commands, "EXIT") == 0)
         {
             break;
@@ -717,12 +715,12 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "JMP") == 0)
         {
             countjmp++;
-            if (countjmp > 5) 
+            if (countjmp > 6)
             {
                 red();
                 printf("\nERROR in JMP! infinite loop!\n");
                 reset();
-                // fscanf(Main, "%[^\n]\n", line);
+                fscanf(Main, "%[^\n]\n", line);
                 // countjmp = 0;
             }
             else
@@ -732,13 +730,13 @@ int main(int argc, char *argv[])
                 if (value <= 0)
                 {
                     red();
-                    printf("\nError in JMP! Negative Line JMP!\n");
+                    printf("\nline %d:Error in JMP! Negative Line JMP!\n", errorline);
                     reset();
                 }
                 else if (value > linecheck)
                 {
                     red();
-                    printf("\nError in JMP! JMP to the line that doesn't exist!\n");
+                    printf("\nline %d: Error in JMP! JMP to the line that doesn't exist!\n", errorline);
                     reset();
                 }
                 else
@@ -754,11 +752,6 @@ int main(int argc, char *argv[])
                     }
                     fseek(Main, charscount + 1, SEEK_SET);
                     fscanf(Main, "%[^\n]\n", line);
-                    // for (k = 0; line[k] != ' '; k++)
-                    // {
-                    //     commands[k] = line[k];
-                    // }
-                    // commands[k] = '\0';
                 }
             }
         }
@@ -771,11 +764,7 @@ int main(int argc, char *argv[])
                 if (S[value] == S[value1])
                 {
                     fscanf(Main, "%[^\n]\n", line);
-                    // for (k = 0; line[k] != ' '; k++)
-                    // {
-                    //     commands[k] = line[k];
-                    // }
-                    // commands[k] = '\0';
+                    errorline++;
                 }
             }
         }
@@ -818,7 +807,7 @@ int main(int argc, char *argv[])
         else
         {
             red();
-            printf("\nERROR! \n The Input is wrong! Please try again. \n");
+            printf("\nERROR! \n The command is wrong! Please try again. \n");
             reset();
         }
     }

@@ -1,0 +1,705 @@
+\doxysection{project.\+c File Reference}
+\label{project_8c}\index{project.c@{project.c}}
+
+
+includes  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ parityflag} (int calc)
+\begin{DoxyCompactList}\small\item\em for conditional register 0 \end{DoxyCompactList}\item 
+void \textbf{ zeroflag} (int calc)
+\begin{DoxyCompactList}\small\item\em for conditional register 1 when the calculation\textquotesingle{}s answer is zero. \end{DoxyCompactList}\item 
+void \textbf{ signflag} (int calc)
+\begin{DoxyCompactList}\small\item\em for conditional register 2 when the calculation\textquotesingle{}s answer is negative. \end{DoxyCompactList}\item 
+void \textbf{ overflowflag\+\_\+\+ADD} (int value1, int value2, int add)
+\begin{DoxyCompactList}\small\item\em for conditional register 5 when we have overflow \end{DoxyCompactList}\item 
+\mbox{\label{project_8c_a8f2e3df115db2688c56e3fb85bc3309d}} 
+void {\bfseries overflowflag\+\_\+\+SUB} (int value1, int value2, int sub)
+\item 
+\mbox{\label{project_8c_ad6e083ab7bda518b97e54a2ac062b6fe}} 
+void {\bfseries overflowflag\+\_\+\+MULL} (int value1, int value2, int mull)
+\item 
+void \textbf{ red} ()
+\begin{DoxyCompactList}\small\item\em for better outputs in redcolor \end{DoxyCompactList}\item 
+void \textbf{ green} ()
+\begin{DoxyCompactList}\small\item\em for better outputs in greencolor \end{DoxyCompactList}\item 
+void \textbf{ yellow} ()
+\begin{DoxyCompactList}\small\item\em for better outputs in yellowcolor \end{DoxyCompactList}\item 
+void \textbf{ blue} ()
+\begin{DoxyCompactList}\small\item\em for better outputs in bluecolor \end{DoxyCompactList}\item 
+void \textbf{ purple} ()
+\begin{DoxyCompactList}\small\item\em for better outputs in purplecolor \end{DoxyCompactList}\item 
+void \textbf{ reset} ()
+\begin{DoxyCompactList}\small\item\em it resets color to original state \end{DoxyCompactList}\item 
+void \textbf{ ADD} (int rd, int rs, int rt)
+\begin{DoxyCompactList}\small\item\em for adding two registers \& put the result in the other register \end{DoxyCompactList}\item 
+void \textbf{ SUB} (int rd, int rs, int rt)
+\begin{DoxyCompactList}\small\item\em for subing two registers \& put the result in the other register \end{DoxyCompactList}\item 
+void \textbf{ AND} (int rd, int rs, int rt)
+\begin{DoxyCompactList}\small\item\em this function AND two registers \& put the result in the other register \end{DoxyCompactList}\item 
+void \textbf{ XOR} (int rd, int rs, int rt)
+\begin{DoxyCompactList}\small\item\em this function XOR two registers \& put the result in the other register \end{DoxyCompactList}\item 
+void \textbf{ OR} (int rd, int rs, int rt)
+\begin{DoxyCompactList}\small\item\em this function OR two registers \& put the result in the other register \end{DoxyCompactList}\item 
+void \textbf{ ADDI} (int rt, int rs, int Imm)
+\begin{DoxyCompactList}\small\item\em for adding a registers and a number \& put the result in the other register \end{DoxyCompactList}\item 
+void \textbf{ SUBI} (int rt, int rs, int Imm)
+\begin{DoxyCompactList}\small\item\em for subbing a registers and a number \& put the result in the other register \end{DoxyCompactList}\item 
+void \textbf{ ANDI} (int rt, int rs, int Imm)
+\begin{DoxyCompactList}\small\item\em this function AND a register with a number \& put the result in the other register \end{DoxyCompactList}\item 
+void \textbf{ XORI} (int rt, int rs, int Imm)
+\begin{DoxyCompactList}\small\item\em this function XOR a register with a number \& put the result in the other register \end{DoxyCompactList}\item 
+void \textbf{ ORI} (int rt, int rs, int Imm)
+\begin{DoxyCompactList}\small\item\em this function OR a register with a number \& put the result in the other register \end{DoxyCompactList}\item 
+void \textbf{ MOV} (int rt, int Imm)
+\begin{DoxyCompactList}\small\item\em this function puts a number or value of a register in other register \end{DoxyCompactList}\item 
+void \textbf{ SWP} (int rt, int rs)
+\begin{DoxyCompactList}\small\item\em this function swap two registers \end{DoxyCompactList}\item 
+void \textbf{ DUMP\+\_\+\+REGS} ()
+\begin{DoxyCompactList}\small\item\em this function prints the value of all registers with all conditional registers \end{DoxyCompactList}\item 
+void \textbf{ DUMP\+\_\+\+REGS\+\_\+F} ()
+\begin{DoxyCompactList}\small\item\em this function saves the print the value of all registers with all conditional registers in a file in the name of regs.\+tx \end{DoxyCompactList}\item 
+void \textbf{ INPUT} ()
+\begin{DoxyCompactList}\small\item\em this function gets value for register 0 \end{DoxyCompactList}\item 
+void \textbf{ OUTPUT} ()
+\begin{DoxyCompactList}\small\item\em this function prints the value of register 0 \end{DoxyCompactList}\item 
+void \textbf{ DIV} (int rt, int rs)
+\begin{DoxyCompactList}\small\item\em this function divides two registers and puts the quotient in register rt \& the remain in register rs \end{DoxyCompactList}\item 
+void \textbf{ MULL} (int rt, int rs)
+\begin{DoxyCompactList}\small\item\em in this function we multiply two registers and put the 4 more valuable bits in register rt \& the 4 less valuable bits in register rs \end{DoxyCompactList}\item 
+void \textbf{ PUSH} (int rs)
+\begin{DoxyCompactList}\small\item\em in this function we push all stacks and save our value in stack 0 \end{DoxyCompactList}\item 
+void \textbf{ POP} (int rt)
+\begin{DoxyCompactList}\small\item\em in this function we empty stack 0 and pull up all the stacks \end{DoxyCompactList}\item 
+int \textbf{ Index\+Error} (int result, int value, int value1, char orders[14])
+\begin{DoxyCompactList}\small\item\em this function checks the errors for negative index of registers \& the index which is more than 31 because there isn\textquotesingle{}t such a register \end{DoxyCompactList}\item 
+int \textbf{ main} (int argc, char $\ast$argv[$\,$])
+\begin{DoxyCompactList}\small\item\em this function do whatever is written in a file which user gives to us \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ S} [32]
+\begin{DoxyCompactList}\small\item\em global values \end{DoxyCompactList}\item 
+int \textbf{ conregs} [8]
+\item 
+int \textbf{ stack} [50]
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+includes 
+
+Include File 
+
+\doxysubsection{Function Documentation}
+\mbox{\label{project_8c_a208b473791cc65cdef28b1a06632767c}} 
+\index{project.c@{project.c}!ADD@{ADD}}
+\index{ADD@{ADD}!project.c@{project.c}}
+\doxysubsubsection{ADD()}
+{\footnotesize\ttfamily void ADD (\begin{DoxyParamCaption}\item[{int}]{rd,  }\item[{int}]{rs,  }\item[{int}]{rt }\end{DoxyParamCaption})}
+
+
+
+for adding two registers \& put the result in the other register 
+
+Function ADD 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rd, rs \& rt) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_aea7e4871dbf3bbada7e723caf01d0439}} 
+\index{project.c@{project.c}!ADDI@{ADDI}}
+\index{ADDI@{ADDI}!project.c@{project.c}}
+\doxysubsubsection{ADDI()}
+{\footnotesize\ttfamily void ADDI (\begin{DoxyParamCaption}\item[{int}]{rt,  }\item[{int}]{rs,  }\item[{int}]{Imm }\end{DoxyParamCaption})}
+
+
+
+for adding a registers and a number \& put the result in the other register 
+
+Function ADDI 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rt, rs \& Imm) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a53f6d122aba9172e5c5082831bf9b38d}} 
+\index{project.c@{project.c}!AND@{AND}}
+\index{AND@{AND}!project.c@{project.c}}
+\doxysubsubsection{AND()}
+{\footnotesize\ttfamily void AND (\begin{DoxyParamCaption}\item[{int}]{rd,  }\item[{int}]{rs,  }\item[{int}]{rt }\end{DoxyParamCaption})}
+
+
+
+this function AND two registers \& put the result in the other register 
+
+Function AND 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rd, rs \& rt) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_af45f9fd88ba958dc935585d12ff327dc}} 
+\index{project.c@{project.c}!ANDI@{ANDI}}
+\index{ANDI@{ANDI}!project.c@{project.c}}
+\doxysubsubsection{ANDI()}
+{\footnotesize\ttfamily void ANDI (\begin{DoxyParamCaption}\item[{int}]{rt,  }\item[{int}]{rs,  }\item[{int}]{Imm }\end{DoxyParamCaption})}
+
+
+
+this function AND a register with a number \& put the result in the other register 
+
+Function ANDI 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rt, rs \& Imm) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a161aec8a96c389795d228ca0c3a949d5}} 
+\index{project.c@{project.c}!blue@{blue}}
+\index{blue@{blue}!project.c@{project.c}}
+\doxysubsubsection{blue()}
+{\footnotesize\ttfamily void blue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+for better outputs in bluecolor 
+
+Function blue 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a55d87b24a8c43f74c7a16a88de23d8c9}} 
+\index{project.c@{project.c}!DIV@{DIV}}
+\index{DIV@{DIV}!project.c@{project.c}}
+\doxysubsubsection{DIV()}
+{\footnotesize\ttfamily void DIV (\begin{DoxyParamCaption}\item[{int}]{rt,  }\item[{int}]{rs }\end{DoxyParamCaption})}
+
+
+
+this function divides two registers and puts the quotient in register rt \& the remain in register rs 
+
+Function DIV 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rs \& rt) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a7246c8d53de6fe3db29dacbae22570db}} 
+\index{project.c@{project.c}!DUMP\_REGS@{DUMP\_REGS}}
+\index{DUMP\_REGS@{DUMP\_REGS}!project.c@{project.c}}
+\doxysubsubsection{DUMP\_REGS()}
+{\footnotesize\ttfamily void DUMP\+\_\+\+REGS (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+this function prints the value of all registers with all conditional registers 
+
+Function DUMP\+\_\+\+REGS 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a1e31b0b875ff67d7c38723f17d2f664a}} 
+\index{project.c@{project.c}!DUMP\_REGS\_F@{DUMP\_REGS\_F}}
+\index{DUMP\_REGS\_F@{DUMP\_REGS\_F}!project.c@{project.c}}
+\doxysubsubsection{DUMP\_REGS\_F()}
+{\footnotesize\ttfamily void DUMP\+\_\+\+REGS\+\_\+F (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+this function saves the print the value of all registers with all conditional registers in a file in the name of regs.\+tx 
+
+Function DUMP\+\_\+\+REGS\+\_\+F 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a0df115437fbb77c0311e65300c65289e}} 
+\index{project.c@{project.c}!green@{green}}
+\index{green@{green}!project.c@{project.c}}
+\doxysubsubsection{green()}
+{\footnotesize\ttfamily void green (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+for better outputs in greencolor 
+
+Function green 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a8209f07e4b49aa973c066589bd2450b3}} 
+\index{project.c@{project.c}!IndexError@{IndexError}}
+\index{IndexError@{IndexError}!project.c@{project.c}}
+\doxysubsubsection{IndexError()}
+{\footnotesize\ttfamily int Index\+Error (\begin{DoxyParamCaption}\item[{int}]{result,  }\item[{int}]{value,  }\item[{int}]{value1,  }\item[{char}]{orders[14] }\end{DoxyParamCaption})}
+
+
+
+this function checks the errors for negative index of registers \& the index which is more than 31 because there isn\textquotesingle{}t such a register 
+
+Function Index\+Error 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & and char (integer number result, value \& value1 and array orders) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int (number 1 or 0) 
+\end{DoxyReturn}
+\mbox{\label{project_8c_ac8b8ad05dd99b6887d7fb7342c25ccd8}} 
+\index{project.c@{project.c}!INPUT@{INPUT}}
+\index{INPUT@{INPUT}!project.c@{project.c}}
+\doxysubsubsection{INPUT()}
+{\footnotesize\ttfamily void INPUT (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+this function gets value for register 0 
+
+Function INPUT 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{project.c@{project.c}!main@{main}}
+\index{main@{main}!project.c@{project.c}}
+\doxysubsubsection{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv[$\,$] }\end{DoxyParamCaption})}
+
+
+
+this function do whatever is written in a file which user gives to us 
+
+function main \doxysubsection{function}\label{project_8c_main}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & and char$\ast$ (integer number argc and array argv) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int (number 0) 
+\end{DoxyReturn}
+\doxysubsubsection{}\label{_}
+\mbox{\label{project_8c_a406fab2688bf343429713a2eb98acc0d}} 
+\index{project.c@{project.c}!MOV@{MOV}}
+\index{MOV@{MOV}!project.c@{project.c}}
+\doxysubsubsection{MOV()}
+{\footnotesize\ttfamily void MOV (\begin{DoxyParamCaption}\item[{int}]{rt,  }\item[{int}]{Imm }\end{DoxyParamCaption})}
+
+
+
+this function puts a number or value of a register in other register 
+
+Function MOV 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rt \& Imm) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_ab9c9faca58fe2946cec7a2d5cce2f954}} 
+\index{project.c@{project.c}!MULL@{MULL}}
+\index{MULL@{MULL}!project.c@{project.c}}
+\doxysubsubsection{MULL()}
+{\footnotesize\ttfamily void MULL (\begin{DoxyParamCaption}\item[{int}]{rt,  }\item[{int}]{rs }\end{DoxyParamCaption})}
+
+
+
+in this function we multiply two registers and put the 4 more valuable bits in register rt \& the 4 less valuable bits in register rs 
+
+Function MULL 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rs \& rt) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a63c0b5dc1a36b43cfcbaa2fca3370599}} 
+\index{project.c@{project.c}!OR@{OR}}
+\index{OR@{OR}!project.c@{project.c}}
+\doxysubsubsection{OR()}
+{\footnotesize\ttfamily void OR (\begin{DoxyParamCaption}\item[{int}]{rd,  }\item[{int}]{rs,  }\item[{int}]{rt }\end{DoxyParamCaption})}
+
+
+
+this function OR two registers \& put the result in the other register 
+
+Function OR 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rd, rs \& rt) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_acc90d732c1fb58250a6bc176275b97ab}} 
+\index{project.c@{project.c}!ORI@{ORI}}
+\index{ORI@{ORI}!project.c@{project.c}}
+\doxysubsubsection{ORI()}
+{\footnotesize\ttfamily void ORI (\begin{DoxyParamCaption}\item[{int}]{rt,  }\item[{int}]{rs,  }\item[{int}]{Imm }\end{DoxyParamCaption})}
+
+
+
+this function OR a register with a number \& put the result in the other register 
+
+Function ORI 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rt, rs \& Imm) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a4c7f5e90646a9bf0abbca56db418354d}} 
+\index{project.c@{project.c}!OUTPUT@{OUTPUT}}
+\index{OUTPUT@{OUTPUT}!project.c@{project.c}}
+\doxysubsubsection{OUTPUT()}
+{\footnotesize\ttfamily void OUTPUT (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+this function prints the value of register 0 
+
+Function OUTPUT 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a5c8b27fba2d659271cb07d625569ad8b}} 
+\index{project.c@{project.c}!overflowflag\_ADD@{overflowflag\_ADD}}
+\index{overflowflag\_ADD@{overflowflag\_ADD}!project.c@{project.c}}
+\doxysubsubsection{overflowflag\_ADD()}
+{\footnotesize\ttfamily void overflowflag\+\_\+\+ADD (\begin{DoxyParamCaption}\item[{int}]{value1,  }\item[{int}]{value2,  }\item[{int}]{add }\end{DoxyParamCaption})}
+
+
+
+for conditional register 5 when we have overflow 
+
+Function overflowflag for add, sub \& mull calculations. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a2527b92cc464e53c928c0a2181734000}} 
+\index{project.c@{project.c}!parityflag@{parityflag}}
+\index{parityflag@{parityflag}!project.c@{project.c}}
+\doxysubsubsection{parityflag()}
+{\footnotesize\ttfamily void parityflag (\begin{DoxyParamCaption}\item[{int}]{calc }\end{DoxyParamCaption})}
+
+
+
+for conditional register 0 
+
+Function parityflag 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_aa4c6614ede3f7cb18fcd977c04a2778f}} 
+\index{project.c@{project.c}!POP@{POP}}
+\index{POP@{POP}!project.c@{project.c}}
+\doxysubsubsection{POP()}
+{\footnotesize\ttfamily void POP (\begin{DoxyParamCaption}\item[{int}]{rt }\end{DoxyParamCaption})}
+
+
+
+in this function we empty stack 0 and pull up all the stacks 
+
+Function POP 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rt) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_ab2b14535fac90d655eb767bff5647d88}} 
+\index{project.c@{project.c}!purple@{purple}}
+\index{purple@{purple}!project.c@{project.c}}
+\doxysubsubsection{purple()}
+{\footnotesize\ttfamily void purple (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+for better outputs in purplecolor 
+
+Function purple 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_ad915a596e86e11f67fb454bd4c12a30a}} 
+\index{project.c@{project.c}!PUSH@{PUSH}}
+\index{PUSH@{PUSH}!project.c@{project.c}}
+\doxysubsubsection{PUSH()}
+{\footnotesize\ttfamily void PUSH (\begin{DoxyParamCaption}\item[{int}]{rs }\end{DoxyParamCaption})}
+
+
+
+in this function we push all stacks and save our value in stack 0 
+
+Function PUSH 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rs) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a39abd40f68d03c40857be1e74407efb9}} 
+\index{project.c@{project.c}!red@{red}}
+\index{red@{red}!project.c@{project.c}}
+\doxysubsubsection{red()}
+{\footnotesize\ttfamily void red (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+for better outputs in redcolor 
+
+Function red 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_ad20897c5c8bd47f5d4005989bead0e55}} 
+\index{project.c@{project.c}!reset@{reset}}
+\index{reset@{reset}!project.c@{project.c}}
+\doxysubsubsection{reset()}
+{\footnotesize\ttfamily void reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+it resets color to original state 
+
+Function reset 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_adfa3adaec90b2adaab3f62bcf674d4b2}} 
+\index{project.c@{project.c}!signflag@{signflag}}
+\index{signflag@{signflag}!project.c@{project.c}}
+\doxysubsubsection{signflag()}
+{\footnotesize\ttfamily void signflag (\begin{DoxyParamCaption}\item[{int}]{calc }\end{DoxyParamCaption})}
+
+
+
+for conditional register 2 when the calculation\textquotesingle{}s answer is negative. 
+
+Function signflag 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a7d552c470d929956ad217d8890a22e19}} 
+\index{project.c@{project.c}!SUB@{SUB}}
+\index{SUB@{SUB}!project.c@{project.c}}
+\doxysubsubsection{SUB()}
+{\footnotesize\ttfamily void SUB (\begin{DoxyParamCaption}\item[{int}]{rd,  }\item[{int}]{rs,  }\item[{int}]{rt }\end{DoxyParamCaption})}
+
+
+
+for subing two registers \& put the result in the other register 
+
+Function SUB 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rd, rs \& rt) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a73241cd5d065fe5e3c8fcd17f29ba1ed}} 
+\index{project.c@{project.c}!SUBI@{SUBI}}
+\index{SUBI@{SUBI}!project.c@{project.c}}
+\doxysubsubsection{SUBI()}
+{\footnotesize\ttfamily void SUBI (\begin{DoxyParamCaption}\item[{int}]{rt,  }\item[{int}]{rs,  }\item[{int}]{Imm }\end{DoxyParamCaption})}
+
+
+
+for subbing a registers and a number \& put the result in the other register 
+
+Function SUBI 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rt, rs \& Imm) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_ae1d663091740d39219a78794f4c6120e}} 
+\index{project.c@{project.c}!SWP@{SWP}}
+\index{SWP@{SWP}!project.c@{project.c}}
+\doxysubsubsection{SWP()}
+{\footnotesize\ttfamily void SWP (\begin{DoxyParamCaption}\item[{int}]{rt,  }\item[{int}]{rs }\end{DoxyParamCaption})}
+
+
+
+this function swap two registers 
+
+Function SWP 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rt \& rs) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a4c2aba9cfc40e6c523935c9b706fc17b}} 
+\index{project.c@{project.c}!XOR@{XOR}}
+\index{XOR@{XOR}!project.c@{project.c}}
+\doxysubsubsection{XOR()}
+{\footnotesize\ttfamily void XOR (\begin{DoxyParamCaption}\item[{int}]{rd,  }\item[{int}]{rs,  }\item[{int}]{rt }\end{DoxyParamCaption})}
+
+
+
+this function XOR two registers \& put the result in the other register 
+
+Function XOR 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rd, rs \& rt) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a45a828d6c33c2f9cc2983efb4a3067ac}} 
+\index{project.c@{project.c}!XORI@{XORI}}
+\index{XORI@{XORI}!project.c@{project.c}}
+\doxysubsubsection{XORI()}
+{\footnotesize\ttfamily void XORI (\begin{DoxyParamCaption}\item[{int}]{rt,  }\item[{int}]{rs,  }\item[{int}]{Imm }\end{DoxyParamCaption})}
+
+
+
+this function XOR a register with a number \& put the result in the other register 
+
+Function XORI 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & (integer number rt, rs \& Imm) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_ab0c10e6284be130a7973fa029a690ef7}} 
+\index{project.c@{project.c}!yellow@{yellow}}
+\index{yellow@{yellow}!project.c@{project.c}}
+\doxysubsubsection{yellow()}
+{\footnotesize\ttfamily void yellow (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+for better outputs in yellowcolor 
+
+Function yellow 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em void} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\mbox{\label{project_8c_a3760eb0bf0e97b62804a9d620f920389}} 
+\index{project.c@{project.c}!zeroflag@{zeroflag}}
+\index{zeroflag@{zeroflag}!project.c@{project.c}}
+\doxysubsubsection{zeroflag()}
+{\footnotesize\ttfamily void zeroflag (\begin{DoxyParamCaption}\item[{int}]{calc }\end{DoxyParamCaption})}
+
+
+
+for conditional register 1 when the calculation\textquotesingle{}s answer is zero. 
+
+Function zeroflag 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em int} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\label{project_8c_ababac9e75c05dafe4c38e43ec5111646}} 
+\index{project.c@{project.c}!conregs@{conregs}}
+\index{conregs@{conregs}!project.c@{project.c}}
+\doxysubsubsection{conregs}
+{\footnotesize\ttfamily int conregs[8]}
+
+conditional registers \mbox{\label{project_8c_a6645214d8cdb9a49f01f13c7361a4646}} 
+\index{project.c@{project.c}!S@{S}}
+\index{S@{S}!project.c@{project.c}}
+\doxysubsubsection{S}
+{\footnotesize\ttfamily int S[32]}
+
+
+
+global values 
+
+32 registers \mbox{\label{project_8c_a78b0c70d2e86b3e02d5cc783935a118d}} 
+\index{project.c@{project.c}!stack@{stack}}
+\index{stack@{stack}!project.c@{project.c}}
+\doxysubsubsection{stack}
+{\footnotesize\ttfamily int stack[50]}
+
+something like ram that we can save our values in it 
