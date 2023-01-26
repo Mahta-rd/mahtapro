@@ -496,20 +496,20 @@ void POP(int rt)
  * @param[in] int and char (integer number result, value & value1 and array orders)
  * @return int (number 1 or 0)
  **/
-int IndexError(int result, int value, int value1, char orders[14])
+int IndexError(int result, int value, int value1, int errorline, char orders[14])
 {
     int flag = 0;
     if (result < 0 || value < 0 || value1 < 0)
     {
         red();
-        printf("\nERROR in %s! The Index is negative.\n", orders);
+        printf("\nline %d: ERROR in %s! The Index is negative.\n", errorline, orders);
         reset();
         flag = 1;
     }
     if (31 < result || 31 < value || 31 < value1)
     {
         red();
-        printf("\nERROR in %s! The index is more than 31.\n", orders);
+        printf("\nline %d: ERROR in %s! The index is more than 31.\n", errorline, orders);
         reset();
         flag = 1;
     }
@@ -557,6 +557,7 @@ int main(int argc, char *argv[])
     {
         reset();
         errorline++;
+        countjmp++;
         char commands[14] = {'\0'};
         /**
          * @code all the letters become capital
@@ -579,7 +580,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "ADD") == 0)
         {
             sscanf(line, "ADD S%d, S%d, S%d", &result, &value, &value1);
-            flag = IndexError(result, value, value1, commands);
+            flag = IndexError(result, value, value1, errorline, commands);
             if (flag == 1)
             {
                 ADD(result, value, value1);
@@ -588,7 +589,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "SUB") == 0)
         {
             sscanf(line, "SUB S%d, S%d, S%d", &result, &value, &value1);
-            flag = IndexError(result, value, value1, commands);
+            flag = IndexError(result, value, value1, errorline, commands);
             if (flag == 1)
             {
                 SUB(result, value, value1);
@@ -597,7 +598,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "AND") == 0)
         {
             sscanf(line, "AND S%d, S%d, S%d", &result, &value, &value1);
-            flag = IndexError(result, value, value1, commands);
+            flag = IndexError(result, value, value1, errorline, commands);
             if (flag == 1)
             {
                 AND(result, value, value1);
@@ -606,7 +607,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "XOR") == 0)
         {
             sscanf(line, "XOR S%d, S%d, S%d", &result, &value, &value1);
-            flag = IndexError(result, value, value1, commands);
+            flag = IndexError(result, value, value1, errorline, commands);
             if (flag == 1)
             {
                 XOR(result, value, value1);
@@ -615,7 +616,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "OR") == 0)
         {
             sscanf(line, "OR S%d, S%d, S%d", &result, &value, &value1);
-            flag = IndexError(result, value, value1, commands);
+            flag = IndexError(result, value, value1, errorline, commands);
             if (flag == 1)
             {
                 OR(result, value, value1);
@@ -624,7 +625,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "ADDI") == 0)
         {
             sscanf(line, "ADDI S%d, S%d, %d", &result, &value, &value1);
-            flag = IndexError(result, value, 1, commands);
+            flag = IndexError(result, value, 1, errorline, commands);
             if (flag == 1)
             {
                 ADDI(result, value, value1);
@@ -633,7 +634,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "SUBI") == 0)
         {
             sscanf(line, "SUBI S%d, S%d, %d", &result, &value, &value1);
-            flag = IndexError(result, value, 1, commands);
+            flag = IndexError(result, value, 1, errorline, commands);
             if (flag == 1)
             {
                 SUBI(result, value, value1);
@@ -642,7 +643,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "ANDI") == 0)
         {
             sscanf(line, "ANDI S%d, S%d, %d", &result, &value, &value1);
-            flag = IndexError(result, value, 1, commands);
+            flag = IndexError(result, value, 1, errorline, commands);
             if (flag == 1)
             {
                 ANDI(result, value, value1);
@@ -651,7 +652,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "XORI") == 0)
         {
             sscanf(line, "XORI S%d, S%d, %d", &result, &value, &value1);
-            flag = IndexError(result, value, 1, commands);
+            flag = IndexError(result, value, 1, errorline, commands);
             if (flag == 1)
             {
                 XORI(result, value, value1);
@@ -660,7 +661,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "ORI") == 0)
         {
             sscanf(line, "ORI S%d, S%d, %d", &result, &value, &value1);
-            flag = IndexError(result, value, 1, commands);
+            flag = IndexError(result, value, 1, errorline, commands);
             if (flag == 1)
             {
                 ORI(result, value, value1);
@@ -671,7 +672,7 @@ int main(int argc, char *argv[])
             if (line[8] == 'S' || line[9] == 'S')
             {
                 sscanf(line, "MOV S%d, S%d", &result, &value);
-                flag = IndexError(result, value, 1, commands);
+                flag = IndexError(result, value, 1, errorline, commands);
                 if (flag == 1)
                 {
                     MOV(result, S[value]);
@@ -680,7 +681,7 @@ int main(int argc, char *argv[])
             else
             {
                 sscanf(line, "MOV S%d, %d", &result, &value);
-                flag = IndexError(result, 1, 1, commands);
+                flag = IndexError(result, 1, 1, errorline, commands);
                 if (flag == 1)
                 {
                     MOV(result, value);
@@ -690,7 +691,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "SWP") == 0)
         {
             sscanf(line, "SWP S%d, S%d", &value, &value1);
-            flag = IndexError(value, value1, 1, commands);
+            flag = IndexError(value, value1, 1, errorline, commands);
             if (flag == 1)
             {
                 SWP(value, value1);
@@ -715,17 +716,18 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "JMP") == 0)
         {
             countjmp++;
-            if (countjmp > 6)
+            if (countjmp > 10)
             {
                 red();
-                printf("\nERROR in JMP! infinite loop!\n");
+                printf("\nline %d: ERROR in JMP! infinite loop!\n", errorline);
                 reset();
-                fscanf(Main, "%[^\n]\n", line);
+                // fscanf(Main, "%[^\n]\n", line);
                 // countjmp = 0;
             }
             else
             {
-                int charscount = 0, linecount = 1;
+                // int charscount = 0;
+                int linecount = 1;
                 sscanf(line, "JMP %d", &value);
                 if (value <= 0)
                 {
@@ -742,23 +744,24 @@ int main(int argc, char *argv[])
                 else
                 {
                     rewind(Main);
+                    errorline = value - 1;
                     while (linecount != value)
                     {
-                        charscount++;
+                        // charscount++;
                         if (fgetc(Main) == '\n')
                         {
                             linecount++;
                         }
                     }
-                    fseek(Main, charscount + 1, SEEK_SET);
-                    fscanf(Main, "%[^\n]\n", line);
+                    // fseek(Main, charscount + 1, SEEK_SET);
+                    // fscanf(Main, "%[^\n]\n", line);
                 }
             }
         }
         else if (strcmp(commands, "SKIE") == 0)
         {
             sscanf(line, "SKIE S%d, S%d", &value, &value1);
-            flag = IndexError(value, value1, 1, commands);
+            flag = IndexError(value, value1, 1, errorline, commands);
             if (flag == 1)
             {
                 if (S[value] == S[value1])
@@ -771,7 +774,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "MULL") == 0)
         {
             sscanf(line, "MULL S%d, S%d", &value, &value1);
-            flag = IndexError(value, value1, 1, commands);
+            flag = IndexError(value, value1, 1, errorline, commands);
             if (flag == 1)
             {
                 MULL(value, value1);
@@ -780,7 +783,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "DIV") == 0)
         {
             sscanf(line, "DIV S%d, S%d", &value, &value1);
-            flag = IndexError(value, value1, 1, commands);
+            flag = IndexError(value, value1, 1, errorline, commands);
             if (flag == 1)
             {
                 DIV(value, value1);
@@ -789,7 +792,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "PUSH") == 0)
         {
             sscanf(line, "PUSH S%d", &value);
-            flag = IndexError(value, 1, 1, commands);
+            flag = IndexError(value, 1, 1, errorline, commands);
             if (flag == 1)
             {
                 PUSH(value);
@@ -798,7 +801,7 @@ int main(int argc, char *argv[])
         else if (strcmp(commands, "POP") == 0)
         {
             sscanf(line, "POP S%d", &value);
-            flag = IndexError(value, 1, 1, commands);
+            flag = IndexError(value, 1, 1, errorline, commands);
             if (flag == 1)
             {
                 POP(value);
@@ -807,7 +810,7 @@ int main(int argc, char *argv[])
         else
         {
             red();
-            printf("\nERROR! \n The command is wrong! Please try again. \n");
+            printf("\nline %d:ERROR! \n The command is wrong! Please try again. \n", errorline);
             reset();
         }
     }
